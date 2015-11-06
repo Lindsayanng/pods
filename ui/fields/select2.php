@@ -45,7 +45,8 @@ $options[ 'data' ] = (array) pods_var_raw( 'data', $options, array(), null, true
 do_action( 'pods_form_ui_select2_before', $value, $name, $options, $pod );
 ?>
 <div class="pods-select2">
-	<input<?php Pods_Form::attributes( $attributes, $name, $form_field_type, $options ); ?> />
+	<select <?php PodsForm::attributes( $attributes, $name, $form_field_type, $options ); ?> />
+	</select>
 </div>
 <?php
 // @todo Needs hook doc
@@ -190,7 +191,7 @@ $select2_args = array();
 					url : ajaxurl + '?pods_ajax=1',
 					type : 'POST',
 					dataType : 'json',
-					data : function ( term, page ) {
+					data : function ( termContainer, page ) {
 						return {
 							_wpnonce : '<?php echo esc_js( $field_nonce ); ?>',
 							action : 'pods_relationship',
@@ -205,7 +206,7 @@ $select2_args = array();
 							<?php } ?>
 							uri : '<?php echo esc_js( $uri_hash ); ?>',
 							id : '<?php echo esc_js( (int) $id ); ?>',
-							query : term<?php
+							query : termContainer.term<?php
 		                                global $sitepress, $icl_adjust_id_url_filter_off;
 
 		                                if ( is_object( $sitepress ) && !$icl_adjust_id_url_filter_off ) {
